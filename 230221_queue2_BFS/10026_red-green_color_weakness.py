@@ -3,15 +3,41 @@ sys.stdin = open('10026_red_green_color_weakness.txt')
 
 N = int(input())
 arr = [list(map(str, input())) for _ in range(N)]
+arr_weakness = []
 visited = [[0] * N for _ in range(N)]
+visited_weakness = [[0] * N for _ in range(N)]
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 q = [[0,0]]
 visited[0][0] = 1
 result = 0
+result_weakness = 0
 check = True
+
+
 while check:
-    # i, j = q.pop(0)
+    i, j = q.pop(0)
+    for k in range(4):
+        nx, ny = j + dx[k], i + dy[k]
+        if 0 <= nx < N and 0 <= ny < N:
+            if arr[ny][nx] == arr[i][j] and visited[ny][nx] == 0:
+                q.append([ny, nx])
+                visited[ny][nx] += 1
+                continue
+            if not q and arr[ny][nx] != arr[i][j] and visited[ny][nx] == 0:
+                q.append([ny, nx])
+                visited[ny][nx] += 1
+                result += 1
+                # if arr[ny][nx] == 'G':
+                #     continue
+                # else:
+                #     result_weakness += 1
+            if not q:
+                check = False
+    # for i in range(N):
+    #     for j in range(N):
+    #         if arr[i][j] == 'G':
+    #             arr[i][j] = 'R'
     # for k in range(4):
     #     nx, ny = j + dx[k], i + dy[k]
     #     if 0 <= nx < N and 0 <= ny < N:
@@ -23,29 +49,12 @@ while check:
     #             visited[ny][nx] += 1
     #             result += 1
     #         if not q:
-    #             break
-    for i in range(N):
-        for j in range(N):
-            if arr[i][j] == 'G':
-                arr[i][j] = 'R'
-    for k in range(4):
-        nx, ny = j + dx[k], i + dy[k]
-        if 0 <= nx < N and 0 <= ny < N:
-            if arr[ny][nx] == arr[i][j] and visited[ny][nx] == 0:
-                q.append([ny, nx])
-                visited[ny][nx] += 1
-            if len(q) == 1 and arr[ny][nx] != arr[i][j] and visited[ny][nx] == 0:
-                q.append([ny, nx])
-                visited[ny][nx] += 1
-                result += 1
-            if not q:
-                check = False
+    #             check = False
 for i in arr:
     print(i)
 for i in visited:
     print(i)
-print(result)
-
+print(f'{result} {result_weakness}')
 
 # q_red = []
 # q_blue = []
