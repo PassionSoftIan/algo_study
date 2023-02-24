@@ -7,29 +7,28 @@ for tc in range(Test_case):
     V = int(input())
     node = [[] for _ in range(V+1)]
     sort = [0] * (V+1)
-    new = {}
 
     for _ in range(V-1):
         p, c = map(int, input().split())
         node[c].append(p)
         node[p].append(c)
+    print(node)
+    new = []
+
+    for i in range(V+1):
+        for j in range(V+1):
+            new.append(node[i][j])
     print(new)
 
+    # for _ in range(V, 0, -1):
 
-    print(node)
-    # for i in range(2, V+1):
-        # print(node[i][0])
-    for i in range(2, V + 1):
-        for j in range(len(node[i])):
-            if node[i][j] == 1:
-                print(node[i][j])
-                break
-            if node[i][j] in node[i-1]:
-                print(node[i][j])
-                break
-            if len(node[i]):
-                print(node[i][j])
-                break
+
+
+    # print(node)
+    # # for i in range(2, V+1):
+    #     # print(node[i][0])
+
+
 # E = V - 1
 # edge = [list(map(int, input().split())) for _ in range(E)]
 # arr = [[0] * (V+1) for _ in range(V+1)]
