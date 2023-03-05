@@ -8,8 +8,6 @@ students = list(range(1, N+1))
 
 check = list(range(1, N+1))
 
-print(paper, students)
-
 stack = []
 stack_idx = []
 for i in range(N):
@@ -19,5 +17,9 @@ for i in range(N):
             stack.append(A)
         else:
             stack_idx.append(A)
-
-for i in range
+    for n in range(i-paper[i]):
+        students.append(stack.pop())
+    students.append(stack_idx.pop())
+    while stack:
+        students.append(stack.pop())
+print(*students)
