@@ -31,4 +31,4 @@ while stack:
 if count % 2 == 0:
     print('No')
 else:
-    print('yes')
+    print('Yes')
