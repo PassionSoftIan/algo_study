@@ -1,19 +1,17 @@
+import sys
+sys.stdin = open('binary_input.txt')
+
 Test_case = int(input())
 
 for tc in range(1, Test_case+1):
     N = int(input())
+    hexadecimal = input()
 
-    octagonal = input()
-
-    binary = ''
-
-    for i in octagonal:
-        decimal = int(i, 16)
-        binary += format(decimal, 'b').zfill(4)
+    decimal = format(int(hexadecimal, 16), 'b')
 
     max_count = 0
     count = 0
-    for i in binary:
+    for i in str(decimal):
         if i == '1':
             count += 1
             if max_count < count:

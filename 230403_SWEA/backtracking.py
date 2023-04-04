@@ -1,5 +1,6 @@
 import sys
-sys.stdin = open('2.txt')
+sys.stdin = open('backtracking_input.txt')
+
 
 def backtracking(depth):
     global min_result
@@ -28,6 +29,7 @@ def backtracking(depth):
             backtracking(depth+1)
             result.pop()
             visited[i] = 0
+
 
 Test_case = int(input())
 
