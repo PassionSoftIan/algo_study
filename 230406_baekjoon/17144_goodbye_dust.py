@@ -46,9 +46,32 @@ dust(coordinate)
 for z in final_arr:
     print(z)
 
+print(R, C)
 
+# 2번 공기청정기 작동
+if T <= R - 1 - cleaner[0][0]:
+    for check in range(1, T+1):
+        cy = cleaner[1][0] + check
+        cx = cleaner[1][1]
+        result -= final_arr[cy][cx]
 
+if R - 1 - cleaner[0][0] < T < R - 1 - cleaner[0][0] + C - 1:
+    for check in range(1, C-1):
+        cy = R
+        cx = 0 + check
+        result -= final_arr[cy][cx]
 
+if R - 1 - cleaner[0][0] + C -1 <= T < 2*(R - 1 - cleaner[0][0]) + C - 1:
+    for check in range(1, R - 1 - cleaner[0][0]):
+        cy = R - check
+        cx = C - 1
+        result -= final_arr[cy][cx]
+
+if 2*(R - 1 - cleaner[0][0]) + C - 1 <= T < 2*(R - 1 - cleaner[0][0] + C - 1):
+    for check in range(1, C-1):
+        cy = cleaner[0][0]
+        cx = C - check
+        result -= final_arr[cy][cx]
 
 print(result)
 
