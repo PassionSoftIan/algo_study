@@ -5,68 +5,44 @@ sys.stdin = open('14503_robot_cleaner_input.txt')
 dy = [-1, 0, 1, 0] # 북 동 남 서
 dx = [0, 1, 0, -1]
 
+direction_90 = {0: 0, 1: 1, 2: 2, 3: 3, -1: 3, -2: 2, -3: 1, -4: 0}
+direction_back = {0: 2, 1: 3, 2: 0, 3: 1}
 
-def clean(c_and_i):
-    global result, flag
-    co_in = [c_and_i]
-    while co_in:
-        flag = False
-        n, m, d = co_in.pop()
-        if arr[n][m] == 0 and visited[n][m] == 0:
-            result += 1
-            visited[n][m] = 1
-        for k in range(4):
-            ny, nx = n + dy[k], m + dx[k]
+
+def clean(info):
+    global operate
+    coo_info = info
+    while coo_info:
+        bit = 0
+        n, m, d = coo_info.pop()
+        if arr[n][m] == 0:
+            operate += 1
+            arr[n][m] = 3
+        # 4방향을 보는데 90도를 회전 한 곳을 먼저 보고 차례대로 ㄱㄱ 1이면 0 3 2 1 순서로 0 이면
+        for k in range(1, 5):
+            ny, nx = n + dy[d-k], m + dx[d-k]
             if 0 <= ny < N and 0 <= nx < M:
-                if arr[ny][nx] == 0 and visited[ny][nx] == 0:
-                    flag = True
+                if arr[ny][nx] == 0:
+                    bit = 1
+                    coo_info.append([ny, nx, direction_90[d-k]])
                     break
-        if flag == True:
-            push([n, m, d])
-        else:
-            if N < n + dy[d-2] or n + dy[d-2] < 0 or N < m + dx[d-2] or m + dx[d-2] < 0:
-                return
-            if 0 <= n + dy[d-2] < N and 0 <= m + dx[d-2] < N:
-                if arr[n + dy[d-2]][m + dx[d-2]] == 1:
-                    return
-                else:
-                    co_in.append([n + dy[d-2], m + dx[d-2], d])
 
-def push(chk):
-    check = [chk]
-    while check:
-        n, m, d = check.pop()
-        if flag == True:
-            if arr[n + dy[d-1]][m + dx[d-1]] != 1 and 0 <= n + dy[d-1] < N and 0 <= m + dx[d-1] < N:
-                if visited[n + dy[d-1]][m + dx[d-1]] == 0:
-                    if d == 0:
-                        check.append([n + dy[d-1], m + dx[d-1], 3])
-                        clean(*check)
-                    else:
-                        check.append([n + dy[d - 1], m + dx[d - 1], d-1])
-                        clean(*check)
-                else:
-                    if d == 0:
-                        check.append([n, m, 3])
-                        continue
-                    else:
-                        check.append([n, m, d-1])
-                        continue
+        if bit == 0:
+            by, bx = n + dy[direction_back[d]], m + dx[direction_back[d]]
+            if arr[by][bx] == 1:
+                return
             else:
-                if d == 0:
-                    check.append([n, m, 3])
-                    continue
-                else:
-                    check.append([n, m, d - 1])
-                    continue
+                coo_info.append([by, bx, d])
 
 
 N, M = map(int, input().split())
-coordinate_info = list(map(int, input().split()))
+
+coordinate = [list(map(int, input().split()))]
+
 arr = [list(map(int, input().split())) for _ in range(N)]
-visited = [[0]*M for _ in range(N)]
-result = 0
 
-clean(coordinate_info)
+operate = 0
 
-print(result)
+clean(coordinate)
+
+print(operate)
