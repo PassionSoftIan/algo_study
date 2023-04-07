@@ -1,6 +1,6 @@
 import sys
 sys.stdin = open('17144_goodbye_dust_input.txt')
-
+# 148
 
 dy = [0, 1, 0, -1]
 dx = [1, 0, -1, 0]
@@ -48,30 +48,33 @@ for z in final_arr:
 
 print(R, C)
 
-# 2번 공기청정기 작동
-if T <= R - 1 - cleaner[0][0]:
-    for check in range(1, T+1):
-        cy = cleaner[1][0] + check
+# 2번 공기청정기 작동 R = 세로, C = 가로
+for check in range(1, T):
+    if check <= R - 2 - cleaner[1][0]:
+        cy = cleaner[1][0] + check  # 3 + 3
         cx = cleaner[1][1]
         result -= final_arr[cy][cx]
+    else:
+        break
 
-if R - 1 - cleaner[0][0] < T < R - 1 - cleaner[0][0] + C - 1:
-    for check in range(1, C-1):
-        cy = R
-        cx = 0 + check
-        result -= final_arr[cy][cx]
+if R - 1 - cleaner[1][0] < T:
+    for check in range(1, T-R+cleaner[1][0]+1+1):
+        if check <= C - 1:
+            cy = R - 1
+            cx = 0 + check
+            result -= final_arr[cy][cx]
 
-if R - 1 - cleaner[0][0] + C -1 <= T < 2*(R - 1 - cleaner[0][0]) + C - 1:
-    for check in range(1, R - 1 - cleaner[0][0]):
-        cy = R - check
-        cx = C - 1
-        result -= final_arr[cy][cx]
-
-if 2*(R - 1 - cleaner[0][0]) + C - 1 <= T < 2*(R - 1 - cleaner[0][0] + C - 1):
-    for check in range(1, C-1):
-        cy = cleaner[0][0]
-        cx = C - check
-        result -= final_arr[cy][cx]
+# if R - 1 - cleaner[1][0] + C - 1 <= T:
+#     for check in range(1, R - 1 - cleaner[1][0]):
+#         cy = R - check
+#         cx = C - 1
+#         result -= final_arr[cy][cx]
+#
+# if 2*(R - 1 - cleaner[1][0]) + C - 1 <= T:
+#     for check in range(1, C-1):
+#         cy = cleaner[1][0]
+#         cx = C - check
+#         result -= final_arr[cy][cx]
 
 print(result)
 
