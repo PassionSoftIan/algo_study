@@ -57,4 +57,5 @@ for i in range(N):
     for j in range(N):
         result += arr[i][j]
 
+
 print(result)
