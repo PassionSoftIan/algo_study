@@ -27,28 +27,3 @@ for nc in range(1, R+1):
     start, end, distance = map(int, input().split())
     edge[start].append([distance, end])
     edge[end].append([distance, start])
-
-visited[1] = 0
-dijkstra([0, 1])
-print(visited)
-
-visited = [int(1e9)] * (N+1)
-visited[2] = 0
-dijkstra([0, 2])
-print(visited)
-
-visited = [int(1e9)] * (N+1)
-visited[3] = 0
-dijkstra([0, 3])
-print(visited)
-
-visited = [int(1e9)] * (N+1)
-visited[4] = 0
-dijkstra([0, 4])
-print(visited)
-
-
-visited = [int(1e9)] * (N+1)
-visited[5] = 0
-dijkstra([0, 5])
-print(visited)
