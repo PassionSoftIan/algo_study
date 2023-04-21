@@ -6,22 +6,43 @@ tree = []
 while True:
     try:
         tree.append(int(input()))
+
     except:
         break
 
-print(tree)
+root = [tree[0]]
 
-root = []
-right = []
-left = []
+left_left = []
+left_right = []
 
-flag = True
-for check in range(len(tree)-1):
-    if check == 0:
-        root.append(tree[check])
-    if flag:
-        if tree[check] > tree[check+1]:
-            left.append(tree[check+1])
-            continue
+right_left = []
+right_right = []
+
+bit = 0
+for i in range(len(tree)-1):
+    if tree[i+1] > root[0]:
+        bit = 1
+
+    if bit == 0:
+        if tree[i] > tree[i+1]:
+            left_left.append(tree[i+1])
         else:
-            flag = False
+            left_right.append(tree[i+1])
+
+    else:
+        if tree[i] > tree[i+1]:
+            right_left.append(tree[i+1])
+        else:
+            right_right.append(tree[i+1])
+
+# for i in range(len(left_left)):
+
+
+
+
+print(tree)
+print(left_left)
+print(left_right)
+
+print(right_left)
+print(right_right)
