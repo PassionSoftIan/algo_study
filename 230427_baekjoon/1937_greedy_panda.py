@@ -3,7 +3,7 @@ sys.stdin = open('1937_greedy_panda_input.txt')
 
 
 def dfs(stack):
-    global max_count, count, result_count
+    global count, info_count
     stack = [stack]
     n, m = stack.pop()
     check[n][m] = 1
@@ -11,16 +11,16 @@ def dfs(stack):
         ny, nx = n + dy[k], m + dx[k]
         if 0 <= ny < N and 0 <= nx < N:
             if visited[ny][nx] == 0:
-                if info[ny][nx] > 0:
-                    if info[n][m] < info[ny][nx]:
-                        info[n][m] = info[ny][nx] + 1
-                    continue
                 if arr[ny][nx] > arr[n][m]:
+                    if info[ny][nx] > 0:
+                        if info_count < info[ny][nx]:
+                            info_count = info[ny][nx] + 1
+                        continue
                     visited[ny][nx] = 1
                     count += 1
                     dfs([ny, nx])
-                    if max_count <= count:
-                        max_count = count
+                    if info_count <= count:
+                        info_count = count
                     count -= 1
                     visited[ny][nx] = 0
 
@@ -42,11 +42,13 @@ count = 1
 
 for i in range(N):
     for j in range(N):
-        result_count = 0
+        info_count = 0
         if check[i][j] == 0:
             visited[i][j] = 1
             dfs([i, j])
             visited[i][j] = 0
+            info[i][j] = info_count
+            max_count = max(max_count, info_count)
 for i in info:
     print(i)
 print(max_count)
